@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu libro en una App</title>
+<meta name="description" content="Una app para tu libro, lista para la FIL: taller en vivo el jueves 26 o te la hacemos nosotros.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tu libro en una App, lista para la FIL">
+<meta property="og:description" content="Taller en vivo el jueves 26 de noviembre o te la hacemos con entrega el domingo 30.">
+<meta property="og:image" content="https://tu-libro-en-una-app.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="theme-color" content="#3fa9c4">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* VOICE: claro, cercano y profesional; de autor a autor.
+   IDEA: la misma puerta sobre la nube de la app del libro, ahora como invitación a otros autores.
+   PICTURE: el cielo turquesa con la puerta abierta como cabecera; dos tarjetas de opción debajo.
+   COLOUR and TYPE: turquesa, blanco y azul petróleo; Newsreader + Inter.
+   LAYOUT: una columna; cabecera, demo, dos opciones con precio y pago, pasos después de pagar, preguntas. */
+:root{color-scheme:light;--bg:#f3fafc;--sky1:#3fa9c4;--sky2:#8fd3e3;--ink:#0d3542;--mute:#4d6f79;--deep:#0f4c5c;--panel:#fff;--line:#cfe6ec;--soft:#e6f5f9}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:680px;margin:0 auto}
+.hero{position:relative;background:linear-gradient(180deg,#2f9fbd,#6cc3d9 60%,#bfe7f0);padding:28px 20px 34px;color:#fff;overflow:hidden}
+.hero svg{display:block;width:150px;height:auto;margin:0 auto 6px}
+.hero .k{font-size:14px;font-weight:600;text-align:center;opacity:.95}
+.hero h1{font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(36px,9vw,50px);line-height:1.05;text-align:center;margin:6px 0 10px;text-wrap:balance}
+.hero p{text-align:center;margin:0 auto;max-width:30em;font-size:16.5px}
+main{padding:24px 20px 56px}
+h2{font-family:Newsreader,Georgia,serif;font-weight:400;font-size:clamp(26px,6.4vw,32px);line-height:1.1;margin:0 0 10px;text-wrap:balance}
+h3{font-size:17px;margin:30px 0 10px}
+p{margin:0 0 14px}.mute{color:var(--mute)}
+.demo{display:flex;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:var(--ink)}
+.demo .d{flex:none;width:56px;height:56px;border-radius:14px;background:linear-gradient(180deg,#2f9fbd,#bfe7f0);display:grid;place-items:center}
+.demo b{display:block;font-weight:600}.demo span{font-size:14px;color:var(--mute)}
+.demo .go{margin-left:auto;color:var(--deep);font-weight:600;white-space:nowrap}
+.plan{background:var(--panel);border:1.5px solid var(--line);border-radius:22px;padding:22px 20px;margin-top:20px}
+.plan.hl{border-color:var(--deep);box-shadow:0 10px 26px rgba(15,76,92,.12)}
+.tag{display:inline-block;font-size:13px;font-weight:600;color:var(--deep);background:var(--soft);border-radius:999px;padding:4px 10px;margin-bottom:10px}
+.when{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px;color:var(--mute);margin:4px 0 14px}
+.when b{color:var(--ink);font-weight:600}
+.plan ul{margin:0 0 16px;padding-left:20px}.plan li{margin-bottom:6px}
+.price{display:flex;align-items:baseline;gap:10px;margin:6px 0 4px}
+.price b{font-family:Newsreader,Georgia,serif;font-size:44px;font-weight:500;line-height:1;white-space:nowrap}
+.price span{color:var(--mute);font-size:15px}
+.seats{font-size:14px;color:var(--mute);margin-bottom:16px}
+.btn{appearance:none;border:0;border-radius:14px;background:var(--deep);color:#fff;font:600 17px Inter,sans-serif;min-height:54px;padding:0 20px;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;line-height:1.25}
+.btn.ghost{background:var(--panel);color:var(--ink);border:1.5px solid var(--line)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--sky1);outline-offset:2px}
+.pay{display:grid;gap:10px}
+.small{font-size:13.5px;color:var(--mute);margin-top:10px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.steps li::before{content:counter(s);flex:none;width:28px;height:28px;border-radius:50%;background:var(--soft);color:var(--deep);font-weight:700;display:grid;place-items:center;font-size:14px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0 16px;margin-bottom:8px}
+summary{cursor:pointer;font-weight:600;padding:14px 0;min-height:44px}
+details p{margin:0 0 14px;color:var(--mute)}
+.later{background:var(--deep);color:#fff;border-radius:20px;padding:22px 20px;margin-top:30px}
+.later h2{color:#fff}.later .btn{background:#fff;color:var(--deep)}
+.foot{font-size:13px;color:var(--mute);margin-top:28px;text-align:center}
+@media(max-width:420px){.demo .go{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="hero">
+  <svg viewBox="0 0 160 120" aria-hidden="true"><defs><linearGradient id="i" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffdf5"/><stop offset="1" stop-color="#f6e3b4"/></linearGradient><filter id="b" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="2.5"/></filter></defs><rect x="62" y="14" width="36" height="78" fill="url(#i)"/><polygon points="62,14 72,20 72,86 62,92" fill="#fff" stroke="#c9d9de"/><rect x="59" y="11" width="42" height="84" fill="none" stroke="#fff" stroke-width="4"/><g filter="url(#b)" fill="#fff"><ellipse cx="80" cy="100" rx="62" ry="12"/><ellipse cx="54" cy="94" rx="24" ry="13"/><ellipse cx="84" cy="90" rx="28" ry="15"/><ellipse cx="110" cy="96" rx="24" ry="11"/></g></svg>
+  <div class="k">Para autores · antes de la FIL Guadalajara</div>
+  <h1>Tu libro en una App</h1>
+  <p>Un test basado en tu libro que tus lectores usan, comparten y que te ayuda a vender ejemplares firmados. Con QR para tu mesa.</p>
+ </header>
+ <main>
+  <a class="demo" id="demo" href="#" target="_blank" rel="noopener">
+   <div class="d"><svg width="28" height="34" viewBox="0 0 28 34" aria-hidden="true"><rect x="5" y="2" width="18" height="28" fill="#fffdf5" stroke="#fff" stroke-width="2"/><polygon points="5,2 10,5 10,27 5,30" fill="#fff"/></svg></div>
+   <div><b>Mira la app de mi libro</b><span>Así se ve una ya funcionando</span></div><div class="go">Abrir →</div>
+  </a>
+
+  <section class="plan hl" aria-labelledby="t1">
+   <div class="tag">Si quieres aprender a hacerla</div>
+   <h2 id="t1">Taller en vivo: Tu libro en una App</h2>
+   <div class="when"><span><b>Jueves 26 de noviembre</b></span><span>7:00 pm, hora del centro</span><span>Zoom · 2.5 horas</span></div>
+   <ul>
+    <li>Construyes la primera versión de la app de tu libro con IA, sin programar.</li>
+    <li>La publicas en tu propio enlace, en tu cuenta.</li>
+    <li>Sales con tu código QR para la FIL.</li>
+    <li>Te llevas la grabación del taller.</li>
+   </ul>
+   <div class="price"><b>$397</b><span>MXN · pago único</span></div>
+   <div class="seats">12 lugares</div>
+   <div class="pay" id="pay1"></div>
+   <p class="small">Garantía: si terminas el taller sin tu app publicada, te devuelvo tu dinero.</p>
+  </section>
+
+  <section class="plan" aria-labelledby="t2">
+   <div class="tag">Si quieres que te la hagamos</div>
+   <h2 id="t2">Tu app hecha para ti, lista para la FIL</h2>
+   <div class="when"><span><b>Entrega: domingo 30 de noviembre</b></span><span>Material a más tardar el jueves 26</span></div>
+   <ul>
+    <li>Un test basado en tu libro, con resultados conectados a tus capítulos y tus citas.</li>
+    <li>Registro de lectores y números en tiempo real en tu Google Sheet.</li>
+    <li>Botones de venta: ejemplar firmado, Amazon, Mercado Libre y tu editorial.</li>
+    <li>Tarjeta para que tus lectores compartan su resultado en historias.</li>
+    <li>Código QR listo para imprimir y una ronda de ajustes.</li>
+   </ul>
+   <div class="price"><b>$1,997</b><span>MXN · pago único</span></div>
+   <div class="seats">Solo 4 lugares, por tiempos de entrega</div>
+   <div class="pay" id="pay2"></div>
+   <p class="small">Garantía: si no te la entrego el domingo 30, te devuelvo el 100%.</p>
+  </section>
+
+  <h3>Después de pagar</h3>
+  <ol class="steps">
+   <li>Mándame tu comprobante por WhatsApp.</li>
+   <li>Te confirmo tu lugar y te envío lo que necesitas: el enlace de Zoom o la lista de material para tu app.</li>
+   <li>Nos vemos el jueves 26 o te entrego tu app el domingo 30.</li>
+  </ol>
+  <div style="margin-top:12px"><a class="btn ghost" id="comp" href="#" target="_blank" rel="noopener">Enviar mi comprobante</a></div>
+
+  <h3>Preguntas frecuentes</h3>
+  <details><summary>¿Necesito saber programar?</summary><p>No. En el taller usamos inteligencia artificial y te guío paso a paso. Y en la opción hecha para ti, no tienes que hacer nada técnico.</p></details>
+  <details><summary>¿Qué necesito para el taller?</summary><p>Computadora, tu libro en PDF o los capítulos que quieras usar, tus enlaces de venta y tres cuentas gratuitas: GitHub, Vercel y Google. Te mando la guía para crearlas antes.</p></details>
+  <details><summary>¿La app es mía?</summary><p>Sí. Queda publicada en tu cuenta, con tu enlace y tus datos. No dependes de mí para que siga funcionando.</p></details>
+  <details><summary>¿Mi libro queda expuesto?</summary><p>No. La app solo usa fragmentos cortos que tú eliges. Tu libro completo nunca se publica.</p></details>
+  <details><summary>¿Puedo pagar de otra forma o pedir factura?</summary><p>Escríbeme por WhatsApp y lo vemos.</p></details>
+
+  <section class="later">
+   <h2>¿Prefieres aprender con calma?</h2>
+   <p>El jueves 10 de diciembre abro otra sesión para crear apps de tu libro, tu negocio o tu emprendimiento.</p>
+   <a class="btn" id="later" href="#" target="_blank" rel="noopener">Avísame de la sesión del 10</a>
+  </section>
+
+  <p class="foot">Antonio Salazar · autor de <em>Lo que tuvo que morir</em> · WhatsApp 228 140 0875</p>
+ </main>
+</div>
+<script>
+{
+/* Configuración: pega aquí tus links de cobro con tarjeta (Mercado Pago o Clip) */
+const CFG={
+ wa:"522281400875",
+ demo:"https://lo-que-tuvo-que-morir-test.vercel.app/",
+ tarjetaTaller:"https://mpago.la/1mTy76d",
+ tarjetaApp:"https://mpago.la/2j2PYgX"
+};
+const wa=m=>`https://wa.me/${CFG.wa}?text=${encodeURIComponent(m)}`;
+const esc=s=>String(s).replace(/"/g,"&quot;");
+function pay(id,prod,price,card){
+ const html=(card?`<a class="btn" href="${esc(card)}" target="_blank" rel="noopener">Pagar con tarjeta · ${price}</a>`
+  :`<a class="btn" href="${wa(`Hola Antonio, quiero pagar con tarjeta: ${prod} (${price}). ¿Me pasas el link?`)}" target="_blank" rel="noopener">Pagar con tarjeta · ${price}</a>`)
+  +`<a class="btn ghost" href="${wa(`Hola Antonio, quiero apartar mi lugar en: ${prod} (${price}). ¿Me pasas los datos para transferencia?`)}" target="_blank" rel="noopener">Pagar por transferencia</a>`;
+ document.getElementById(id).innerHTML=html;
+}
+pay("pay1","Taller en vivo Tu libro en una App, jueves 26","$397 MXN",CFG.tarjetaTaller);
+pay("pay2","App hecha para mi libro, entrega domingo 30","$1,997 MXN",CFG.tarjetaApp);
+document.getElementById("demo").href=CFG.demo;
+document.getElementById("comp").href=wa("Hola Antonio, te envío mi comprobante de pago. Mi nombre es: ");
+document.getElementById("later").href=wa("Hola Antonio, avísame de la sesión del 10 de diciembre para crear mi app.");
+}
+</script>
+</body>
+</html>
